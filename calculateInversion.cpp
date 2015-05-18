@@ -69,9 +69,13 @@ int merge(int *A, const int start, const int mid, const int end){
 
 int countSplitInv(int* A, const int start, const int end){
     int mid = (start + end)/2;
-    mergeSort(A, start, mid);
-    mergeSort(A, mid+1, end);
-    return merge(A, start, mid, end);
+	int *B = new int[5];
+	for (int i = 0; i < 5; i++){
+		B[i] = A[i];
+	}
+    mergeSort(B, start, mid);
+    mergeSort(B, mid+1, end);
+    return merge(B, start, mid, end);
     
 }
 
@@ -86,14 +90,13 @@ int count(int* A, const int start, const int end){
 
 int main(int argc, const char * argv[])
 {
-    ifstream myfile("data.txt");
+    ifstream myfile;
     int nrows = 5;
     int * myarray = new int[nrows];
-    
+	myfile.open("data.txt");
     if(myfile.fail()){
         cerr << "file open fail" << endl;
     }
-    
     
     for(int i = 0; i < nrows ; ++i){
         if(!(myfile >> myarray[i])){
@@ -103,7 +106,8 @@ int main(int argc, const char * argv[])
         if(!myfile){
             break;}
         }
-    
+	cout << "running" << endl;
     cout<<count(myarray, 0, nrows)<<endl;
+	system("PAUSE");
     return 0;
 }
